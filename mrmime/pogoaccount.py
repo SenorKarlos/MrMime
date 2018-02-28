@@ -514,6 +514,10 @@ class POGOAccount(object):
             item_id=item_id,
             count=amount), action=2)
 
+    def req_fetch_all_news(self):
+        return self.perform_request(
+            lambda req: req.fetch_all_news())
+
     def req_level_up_rewards(self, level):
         return self.perform_request(
             lambda req: req.level_up_rewards(level=level))
@@ -570,8 +574,10 @@ class POGOAccount(object):
             'iPhone10,6': 'D221AP'
         }
 
+
         
         ios11 = ('11.0.1', '11.0.2', '11.0.3', '11.1', '11.1.1', '11.1.2', '11.2', '11.2.1', '11.2.2', '11.2.5', '11.2.6')
+
 
         device_info = {
             'device_brand': 'Apple',
@@ -897,6 +903,11 @@ class POGOAccount(object):
             # ===== GET_PLAYER_PROFILE
             self.perform_request(lambda req: req.get_player_profile())
             time.sleep(random.uniform(.2, .3))
+
+        # News Items --------------------------------------------------
+        self.log_debug("Login Flow: Fetching News")
+        self.perform_request(lambda req: req.fetch_all_news())
+        time.sleep(random.uniform(.45, .7))
 
         # Level up rewards --------------------------------------------------
         self.log_debug("Login Flow: Get levelup rewards")
